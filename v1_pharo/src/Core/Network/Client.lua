@@ -40,7 +40,10 @@ return function(framework)
 			or events[type]:FindFirstChild(name)
 		if event then
 			if type == "RemoteEvent" then
-				event:FireServer(name, ...)
+				local currentTime = workspace:GetServerTimeNow()
+				local seasoned, salt = framework.Security:Season(name, currentTime)
+				local name = framework.Security:Hash(seasoned)
+				event:FireServer(name, salt, ...)
 			elseif type == "RemoteFunction" then
 				return event:InvokeServer(...)
 			elseif type == "BindableEvent" then

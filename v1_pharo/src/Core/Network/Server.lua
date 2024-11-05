@@ -54,7 +54,17 @@ return function(framework)
 		end
 	end
 
-	local function ReceiveRE(name, player, ...)
+	local function ReceiveRE(name, salt, player, ...)
+		warn(name, salt)
+		-- Compare received hash to stored network binds
+		local hash0 = name
+		for bindName, bindTable in pairs(network["RE"]) do
+			local hash1 = framework.Security:Hash(salt .. bindName)
+			if hash1 == hash0 then
+				name = bindName
+			end
+		end
+		-- Execute binded functions
 		local event = network["RE"][name]
 		if event then
 			for i, func in pairs(event) do
@@ -96,8 +106,8 @@ return function(framework)
 	end
 
 	-- [ Setup ]
-	events:FindFirstChildOfClass("RemoteEvent").OnServerEvent:Connect(function(player, name, ...)
-		ReceiveRE(name, player, ...)
+	events:FindFirstChildOfClass("RemoteEvent").OnServerEvent:Connect(function(player, name, salt, ...)
+		ReceiveRE(name, salt, player, ...)
 	end)
 
 	events.RemoteFunction.NewEvent.OnServerInvoke = function(player, name, eventType)

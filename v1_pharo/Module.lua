@@ -9,10 +9,11 @@ local env = dir.env
 local assets = env.Assets
 local coreOrder = {
 	[1] = "Utility",
-	[2] = "Network",
-	[3] = "Config",
-	[4] = "Services",
-	--[5] = "Players",
+	[2] = "Security",
+	[3] = "Network",
+	[4] = "Config",
+	[5] = "Services",
+	--[6] = "Players",
 }
 local loadedModules = {}
 

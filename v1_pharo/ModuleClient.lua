@@ -5,10 +5,11 @@ local dir = script.Parent
 local src = dir.src
 local coreOrder = {
 	[1] = "Utility",
-	[2] = "Network",
-	[3] = "Config",
-	[4] = "Services",
-	--[5] = "Players",
+	[2] = "Security",
+	[3] = "Network",
+	[4] = "Config",
+	[5] = "Services",
+	--[6] = "Players",
 }
 
 framework.Version = "Client"
@@ -64,11 +65,9 @@ local function Initialize()
 	print("[C] Loaded module")
 	ReplicatedStorage:SetAttribute("ClientLoaded", true)
 
-	-- Retreat to hidey hole (sets client module code to nil instance) [[
-	--[[
+	-- Retreat to hidey hole (sets client module code to nil instance)
 	local folder = script.Parent
 	folder.Parent = nil
-	]]
 end
 
 Initialize()

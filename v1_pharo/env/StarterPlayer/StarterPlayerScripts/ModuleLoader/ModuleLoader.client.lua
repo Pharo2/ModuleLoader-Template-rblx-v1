@@ -13,8 +13,8 @@ until moduleScript and moduleSource
 local module = require(moduleScript)
 
 -- Bye bye! Sets module loader to nil instance
---[[
-game:GetService("RunService").Heartbeat:Wait()
-local me = script
+task.wait()
+local me = game.StarterPlayer.StarterPlayerScripts:FindFirstChild("ModuleLoader")
+local me2 = script.Parent
 me.Parent = nil
-]]
+me2.Parent = nil
