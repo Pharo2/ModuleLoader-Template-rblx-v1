@@ -9,7 +9,7 @@ local coreOrder = {
 	[3] = "Network",
 	[4] = "Config",
 	[5] = "Services",
-	--[6] = "Players",
+	[6] = "Players",
 }
 
 framework.Version = "Client"
@@ -19,7 +19,7 @@ framework.source = src
 
 -- Load code and store
 local function Load(toLoad)
-	if toLoad then
+	if toLoad and toLoad.ClassName == "ModuleScript" then
 		require(toLoad)(framework)
 		return true
 	else

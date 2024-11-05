@@ -15,7 +15,7 @@ return function(framework)
 
 	-- [ Setup ]
 	for i, v in pairs(framework.config:GetChildren()) do
-		module[v.Name] = require(v)
+		module[v.Name] = require(v)(framework)
 	end
 
 	-- [ Execution ]

@@ -13,7 +13,7 @@ local coreOrder = {
 	[3] = "Network",
 	[4] = "Config",
 	[5] = "Services",
-	--[6] = "Players",
+	[6] = "Players",
 }
 local loadedModules = {}
 
@@ -64,7 +64,7 @@ end
 
 -- Load code and store
 local function Load(toLoad)
-	if toLoad then
+	if toLoad and toLoad.ClassName == "ModuleScript" then
 		require(toLoad)(framework)
 		loadedModules[toLoad.Name] = true
 		return true
@@ -87,7 +87,9 @@ local function LoadModules()
 		-- If it's a folder, load all it's contents
 		if toLoad.ClassName == "Folder" then
 			for i, child in pairs(toLoad:GetChildren()) do
-				Load(child)
+				if child and not child:GetAttribute("SkipLoading") then
+					Load(child)
+				end
 			end
 		-- Otherwise we can just load the thing itself
 		else
