@@ -1,0 +1,7 @@
+{
+    "robloxLsp.diagnostics.disable": [
+        "redefined-local",
+        "unused-local",
+        "unused-variable"
+    ]
+}

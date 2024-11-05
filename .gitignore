@@ -1,0 +1,8 @@
+# Project place file
+/v1-pharo.rbxlx
+/build
+
+# Roblox Studio lock files
+/*.rbxl
+/*.rbxlx.lock
+/*.rbxl.lock
