@@ -19,6 +19,7 @@ local loadedModules = {}
 
 framework.Version = "Server"
 framework.assets = env.Assets
+framework.cache = env.ReplicatedStorage.Cache
 framework.config = src.Configuration
 framework.source = src
 

@@ -14,6 +14,7 @@ local coreOrder = {
 
 framework.Version = "Client"
 framework.assets = ReplicatedStorage:WaitForChild("Assets", 3)
+framework.cache = ReplicatedStorage:WaitForChild("Cache", 3)
 framework.config = src.Configuration
 framework.source = src
 
