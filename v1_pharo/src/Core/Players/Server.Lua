@@ -1,6 +1,5 @@
 return function(framework)
 	-- [ Services ]
-	local Players = game:GetService("Players")
 	local PlayerWrapper = require(script.Parent.Wrapper:FindFirstChild("PlayerWrapper"))(framework)
 
 	-- [ Variables ]
@@ -8,6 +7,7 @@ return function(framework)
 	local Class = {}
 
 	local playerList = {}
+	local meta = {}
 
 	-- [ Functions ]
 	local function NewPlayer(player)
@@ -15,25 +15,33 @@ return function(framework)
 			Player = player,
 			FakePlayer = PlayerWrapper:Wrap(player),
 		}
-		local meta = {}
+		setmetatable(data, meta)
 		meta.__index = data.FakePlayer
 		meta.__call = function(self)
 			return table.clone(self)
 		end
-		setmetatable(data, meta)
 		playerList[player.Name] = data
 	end
 
+	function Service:GetPlayers()
+		return playerList
+	end
+
 	-- \\ Player class functions
+	function Class:TestFunction()
+
+	end
 
 	-- [ Setup ]
 	framework.Players = Service
 	framework.Players.Functions = Class
 
 	-- [ Execution ]
-	for i, player in pairs(Players:GetChildren()) do
+	for i, player in pairs(game:GetService("Players"):GetChildren()) do
 		NewPlayer(player)
 	end
-	Players.PlayerAdded:Connect(NewPlayer)
+	game:GetService("Players").PlayerAdded:Connect(function(player)
+		NewPlayer(player)
+	end)
 	return Service
 end

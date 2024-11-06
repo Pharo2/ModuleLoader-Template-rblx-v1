@@ -21,7 +21,7 @@ return function(framework)
 			return real
 		end
 	end
-
+	
 	function PlayerWrapper:Wrap(real)
 		for w, r in next, wrappercache do
 			if r == real then
@@ -29,14 +29,16 @@ return function(framework)
 			end
 		end
 
-		if type(real) == "userdata" then
+		if type(real) == "userdata" and real.ClassName == "Player" then
 			local fake = newproxy(true)
 			local meta = getmetatable(fake)
 
 			meta.__index = function(s, k)
 				for i, v in pairs(framework.Players.Functions) do
 					if i == k then
-						return v
+						return function(self, ...)
+							return v(self, ...)
+						end
 					end
 				end
 				return PlayerWrapper:Wrap(real[k])
