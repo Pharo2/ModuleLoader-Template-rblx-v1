@@ -1,7 +1,7 @@
 return function(framework)
 	-- [ Services ]
-	local Players = game:GetService("Players")
 	local PlayerWrapper = require(script.Parent.Wrapper:FindFirstChild("PlayerWrapper"))(framework)
+	local Players = game:GetService("Players")
 
 	-- [ Variables ]
 	local Service = {}
@@ -9,6 +9,7 @@ return function(framework)
 
 	local playerList = {}
 	local playerBinds = {adding = {}, removing = {}}
+	local meta = {}
 
 	-- [ Functions ]
 	local function UpdateList()
@@ -81,14 +82,21 @@ return function(framework)
 		end
 	end
 
+	function Service:GetPlayers()
+		return playerList
+	end
+
 	-- \\ Player class functions
+	function Class:TestFunction()
+
+	end
 
 	-- [ Setup ]
 	framework.Players = Service
 	framework.Players.Functions = Class
 
 	-- [ Execution ]
-	for i, player in pairs(Players:GetChildren()) do
+	for i, player in pairs(game:GetService("Players"):GetChildren()) do
 		NewPlayer(player)
 	end
 	Players.PlayerAdded:Connect(NewPlayer)
