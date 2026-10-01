@@ -1,0 +1,1 @@
+Outdated attempt at creating a module loader template for use in Roblox games, contains basic functionality for loading modules and running network securely along with basic services and utility functionality.
